@@ -10,7 +10,7 @@ library(scales)
 datalink <- read_html("https://www.worldometers.info/coronavirus/country/us/")
 datahtmlnodes <- html_nodes(datalink,'#usa_table_countries_today')
 
-data1 <- html_table(datahtmlnodes)[[1]] %>%
+data1 <- html_table(datahtmlnodes, fill=TRUE)[[1]] %>%
   select(USAState)%>%
   filter(!str_detect(USAState, 'Total|Guam|Northern Mariana|Puerto|Virgin Islands|Veteran|Military|Prisons|Navajo|Ship|Wuhan'))  #remove the "total" row and keep only 50 States and District of Colombia
 

@@ -15,13 +15,13 @@ shinyServer(function(input,output){
       datalink <- read_html("https://www.worldometers.info/coronavirus/country/us/")
       datahtmlnodes <- html_nodes(datalink,'#usa_table_countries_today')
       
-      data1 <- html_table(datahtmlnodes, fill = TRUE)[[1]]
+      data1 <- html_table(datahtmlnodes, fill=TRUE)[[1]]
       
       
       data1 <- data1 %>%
         select(-Source, -Projections) %>%       #remove unneeded columns 
         mutate_all(na_if,"") %>%                #turn blanks into NA values
-        filter(!str_detect(USAState, 'Total|Guam|Northern Mariana|Puerto|Virgin Islands|Veteran|Military|Prisons|Navajo|Ship|Wuhan'))  #remove the "total" row and keep only 50 States and District of Colombia
+        filter(!str_detect(USAState, 'Total|Guam|Northern Mariana|Puerto|Virgin Islands|Veteran|Military|Prisons|Navajo|Ship|Wuhan|American Samoa'))  #remove the "total" row and keep only 50 States and District of Colombia
       
       data1 <- as.data.frame(lapply(data1, function(y) gsub(",", "", y)))    #removes commas in numeric values from all columns
       data1 <- as.data.frame(lapply(data1, function(y) gsub("\\+", "", y)))  #removes plus sign from all columns

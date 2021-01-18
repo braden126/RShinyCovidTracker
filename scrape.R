@@ -8,11 +8,10 @@ datahtmlnodes <- html_nodes(datalink,'#usa_table_countries_today')
 
 data <- html_table(datahtmlnodes, fill=TRUE)[[1]]
 
-
 data <- data %>%
   select(-Source, -Projections) %>%       #remove unneeded columns 
   mutate_all(na_if,"") %>%                #turn blanks into NA values
-  filter(!str_detect(USAState, 'Total|Guam|Northern Mariana|Puerto|Virgin Islands|Veteran|Military|Prisons|Navajo|Ship|Wuhan'))  #remove the "total" row and keep only 50 States and District of Colombia
+  filter(!str_detect(USAState, 'Total|Guam|Northern Mariana|Puerto|Virgin Islands|Veteran|Military|Prisons|Navajo|Ship|Wuhan|American Samoa'))  #remove the "total" row and keep only 50 States and District of Colombia
 
 #str(data)
 
